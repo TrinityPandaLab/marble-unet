@@ -1,0 +1,12 @@
+datamy/
+Kfolder/
+K-fold-log/
+Labels(copy)/
+Labels-sawdusts(copy)
+_pycache__/
+
+logs
+*.log
+
+/dist
+.env
