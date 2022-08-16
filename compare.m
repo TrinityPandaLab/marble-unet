@@ -7,7 +7,7 @@
  result_Dice= [];
  for img = files'
    ansname = strcat(ans_path,img.name);
-   prename = strcat(prediction_path,string(extractBetween(img.name,'marble','.tif')),'_predict.png');
+   prename = strcat(prediction_path,'double_',string(extractBetween(img.name,'','.tif')),'.tif');
    a=imread(ansname);
    b=imread(prename);
    a=a(:,:,1);
@@ -15,7 +15,7 @@
    a=imresize(a,[256,256]);
    b=imresize(b,[256,256]);
    %comment this following line when comparing to an original label
-   %a=imbinarize(a,0.5);
+   a=imbinarize(a,0.5);
    b=imbinarize(b,0.5);
    intersection=((a==b)&(a==0));
    a=-1*a+1;
@@ -29,5 +29,5 @@
    result_Dice = [result_Dice,Dice_value];
 
  end
- %writematrix(result_IOU,'/home/zyck/Downloads/unet-test/unet-master/result.xlsx','Sheet',1,'Range','I47')
- writematrix(result_Dice,'/home/zyck/Downloads/unet-test/unet-master/result.xlsx','Sheet',1,'Range','I52')
+ writematrix(result_IOU,'/home/zyck/Downloads/unet-test/unet-master/result.xlsx','Sheet',1,'Range','I69')
+ writematrix(result_Dice,'/home/zyck/Downloads/unet-test/unet-master/result.xlsx','Sheet',1,'Range','I70')

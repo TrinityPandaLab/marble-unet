@@ -1,7 +1,0 @@
-for k = 0:525
-    I = imread(strcat(string(k)+'.bmp'));
-    height = 
-    h = zeros.
-
-    saveas(h,string(k),'tif');
-end
