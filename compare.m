@@ -1,11 +1,15 @@
+%matlab script
+%author: Yicheng Zhu
+%filname: compare.m
+
 %evaluation within one folder
- %evaluation of IOU
- prediction_path = 'prediction/';
- ans_path = 'ans/';
- files = dir(strcat(ans_path,'*.tif'));
- result_IOU= [];
- result_Dice= [];
- for img = files'
+%evaluation of IOU
+prediction_path = 'prediction/';
+ans_path = 'ans/';
+files = dir(strcat(ans_path,'*.tif'));
+result_IOU= [];
+result_Dice= [];
+for img = files'
    ansname = strcat(ans_path,img.name);
    prename = strcat(prediction_path,'double_',string(extractBetween(img.name,'','.tif')),'.tif');
    a=imread(ansname);
