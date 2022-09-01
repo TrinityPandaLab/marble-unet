@@ -1,4 +1,10 @@
 %convert and combine
+%author: Yicheng Zhu
+%filname: Convert_combine.m
+
+%evaluation within one folder
+%evaluation of IOU
+
 sawdust_path = 'Kfolder/total/sawdust/';
 marble_path = 'Kfolder/total/marble/';
 out_path = 'Kfolder/total/labels/';
@@ -22,6 +28,3 @@ for k = 0:1:(k_value-1)
         imwrite(result,strcat(out_path,filename));
     end
 end
-
-
-

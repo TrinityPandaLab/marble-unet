@@ -1,17 +1,22 @@
-%matlab script
+%Comparing the prediction and original image and come up with IOU and
+%Dice-coefficients
 %author: Yicheng Zhu
 %filname: compare.m
 
 %evaluation within one folder
 %evaluation of IOU
-
+%-------------specify the paths here----------
 prediction_path = 'prediction/';
 ans_path = 'ans/';
+%-------------generate file path by folder paths-------
 files = dir(strcat(ans_path,'*.tif'));
+
 result_IOU= [];
 result_Dice= [];
 for img = files'
    ansname = strcat(ans_path,img.name);
+   %this following line is to extract the actual filename, modify this
+   %line with your filenames
    prename = strcat(prediction_path,'double_',string(extractBetween(img.name,'','.tif')),'.tif');
    a=imread(ansname);
    b=imread(prename);
