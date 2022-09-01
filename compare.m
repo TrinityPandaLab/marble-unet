@@ -4,6 +4,7 @@
 
 %evaluation within one folder
 %evaluation of IOU
+
 prediction_path = 'prediction/';
 ans_path = 'ans/';
 files = dir(strcat(ans_path,'*.tif'));
