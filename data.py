@@ -88,6 +88,12 @@ def trainGenerator(batch_size,train_path,image_folder,mask_folder,save_to_dir,au
 
 
 def testGenerator(test_path,num_image,target_size = (256,256),flag_multi_class = False,as_gray = False):
+    '''
+    Generate the testing images from the specified path,
+    resize them to 256*256,
+    number of image specified by the user
+    set as_gray as False if they are RGB images
+    '''
     for i in range(num_image):
         img = io.imread(os.path.join(test_path,"%d.tif"%i),as_gray = as_gray)
         #img = img / 255
@@ -96,17 +102,26 @@ def testGenerator(test_path,num_image,target_size = (256,256),flag_multi_class =
         img = np.reshape(img,(1,)+img.shape)
         yield img
 
-def resultGenerator(test_path, num_image = 30, target_size = (256,256), flag_multi_class = False, as_gray = False):
-    for i in range(num_image):
-        img = io.imread(os.path.join(test_path,"%d.tif"%i),as_gray = as_gray)
-        #img = img / 255
-        img = trans.resize(img,target_size)
-        #img = np.reshape(img,img.shape+(1,)) if (not flag_multi_class) else img
-        img = np.reshape(img,(1,)+img.shape)
-        yield img
+#def resultGenerator(test_path, num_image = 30, target_size = (256,256), flag_multi_class = False, as_gray = False):
+#    '''
+#    Generate the 30 resulting images from the specified path,
+#    resize them to 256*256
+#    set as_gray as False if they are RGB images
+#    '''
+#    for i in range(num_image):
+#        img = io.imread(os.path.join(test_path,"%d.tif"%i),as_gray = as_gray)
+#        #img = img / 255
+#        img = trans.resize(img,target_size)
+#        #img = np.reshape(img,img.shape+(1,)) if (not flag_multi_class) else img
+#        img = np.reshape(img,(1,)+img.shape)
+#        yield img
 
 
 def geneTrainNpy(image_path,mask_path,flag_multi_class = False,num_class = 2,image_prefix = "image",mask_prefix = "mask",image_as_gray = True,mask_as_gray = True):
+    '''
+    from the original image path, read images and convert them into numpy arrays
+    change the file extensions as needed in this following line.
+    '''
     image_name_arr = glob.glob(os.path.join(image_path,"%s*.bmp"%image_prefix))
     image_arr = []
     mask_arr = []
@@ -132,12 +147,13 @@ def labelVisualize(num_class,color_dict,img):
 
 
 def kfolderGenerator(k_value,image_path,label_path):
+    '''
+    Generate the k-folders according to k_value following the concept of k-fold cross validation process
+    '''
     count = 0
     count2 = 0
     wkdir = ''
-    # Iterate directory
     for path in os.listdir(image_path):
-        # check if current path is a file
         if os.path.isfile(os.path.join(image_path, path)):
             count += 1
     for path in os.listdir(label_path):
@@ -200,6 +216,11 @@ def kfolderGenerator(k_value,image_path,label_path):
         print('Unmatched number of files.')
 
 def kfolderGenerator_double(k_value,label_path,image_path,marble_path,sawdust_path):
+    '''
+    Generate the k-folders according to k_value following the concept of k-fold cross validation process
+    this method is used specifically for the double-network method
+    it puts everything needed to the folders and use more space
+    '''
     count = 0
     count2 = 0
     count3 = 0
@@ -284,6 +305,9 @@ def kfolderGenerator_double(k_value,label_path,image_path,marble_path,sawdust_pa
         print('Unmatched number of files.')
 
 def saveResult(current_kfold,save_path,npyfile,flag_multi_class = False,num_class = 2):
+    '''
+    Save the result from the generated numpy files, into the current k-folder
+    '''
     wkpath = os.path.join('Kfolder',str(current_kfold))
     for i,item in enumerate(npyfile):
         img = labelVisualize(num_class,COLOR_DICT,item) if flag_multi_class else item[:,:,0]
@@ -293,7 +317,13 @@ def saveResult(current_kfold,save_path,npyfile,flag_multi_class = False,num_clas
             shutil.copy(os.path.join(wkpath,'test',item),os.path.join('Kfolder','total',str(current_kfold)+'_'+item))
             if item[-4:] == '.tif':
                 shutil.copy(os.path.join(wkpath,'test','correctans',item),os.path.join('Kfolder','total','ans',str(current_kfold)+'_'+item))
+
+
 def saveResult_double(current_kfold,is_marble,save_path,npyfile,flag_multi_class = False,num_class = 2):
+        '''
+        Save the result from the generated numpy files, into the current k-folder
+        this method is used specifically for the double-network method
+        '''
     wkpath = os.path.join('Kfolder',str(current_kfold))
     for i,item in enumerate(npyfile):
         img = labelVisualize(num_class,COLOR_DICT,item) if flag_multi_class else item[:,:,0]
