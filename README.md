@@ -1,5 +1,5 @@
-# marble-unet
-  Workflow: load the marble/sawdust labels into the marble/sawdust folder in 'Labels'-> load the marble&sawdust labels into the 'Labels-double' folder-> Load the pre-processed inputs to the input folder, make sure each sets were renamed using continuous integers, like '0.tif', '1.tif'...-> run the 
+# A Deep-Learning Approach to Marble-Burying Quantification: Image Segmentation for Marble and Bedding
+  Workflow: load the marble/sawdust labels into the marble/sawdust folder in 'Labels'-> load the marble&sawdust labels into the 'Labels-double' folder-> Load the pre-processed inputs to the input folder, make sure each sets were renamed using continuous integers, like '0.tif', '1.tif'
 
 
 This repository contains the following folders/files    
